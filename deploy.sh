@@ -25,6 +25,6 @@ git commit -m 'deploy'
 # git push -f git@github.com:<用戶名稱>/<儲存庫名稱>.git main:gh-pages
 
 # 除此之外，也可以改走 HTTPS 模式
-git push -f https://github.com/viccjiang/somesweet_bakery.git main:gh-pages
+git push -f https://github.com/viccjiang/vue_week_06.git main:gh-pages
 
 cd -
