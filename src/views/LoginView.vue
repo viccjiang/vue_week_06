@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5 h-100">
+  <div class="container py-5 vh-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
         <div class="card" style="border-radius: 1rem;">
@@ -28,9 +28,14 @@
                       placeholder="Password" required>
                     <label for="floatingPassword">Password</label>
                   </div>
-                  <button class="btn btn-lg btn-primary w-100 mt-3 mb-3" type="submit">
-                    登入
-                  </button>
+                  <div class="d-flex d-grid gap-2">
+                    <button class="btn btn-lg btn-outline-primary w-100 mt-3 mb-3" type="button" @click="goBack">
+                      回到首頁
+                    </button>
+                    <button class="btn btn-lg btn-primary w-100 mt-3 mb-3" type="submit">
+                      立即登入
+                    </button>
+                  </div>
 
                   <div class="d-flex justify-content-between align-items-center">
                     <!-- Checkbox -->
@@ -79,6 +84,9 @@ export default {
       }).catch((err) => {
         alert(err.data.message)
       })
+    },
+    goBack () {
+      this.$router.push('/')
     }
   }
 }
@@ -86,17 +94,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-html,
-body {
-  height: 100%;
-  text-align: center;
-}
+// html,
+// body {
+//   height: 100%;
+//   text-align: center;
+// }
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+// body {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
 
 .form-signin {
   width: 100%;

@@ -9,12 +9,12 @@ const routes = [
       {
         path: '',
         // name: 'Home',
-        component: () => import('../views/FrontView/HomeView.vue')
+        component: () => import('../views/FrontView/UserHome.vue')
       },
       {
         path: 'home',
         // name: 'Home',
-        component: () => import('../views/FrontView/HomeView.vue')
+        component: () => import('../views/FrontView/UserHome.vue')
       },
       {
         path: 'about',
@@ -35,13 +35,13 @@ const routes = [
         path: 'cart',
         // name: 'cart',
         component: () => import('../views/FrontView/UserCart.vue')
-      },
-      {
-        // 登入，屬於前台
-        path: '/login',
-        component: () => import('../views/FrontView/LoginView.vue')
       }
     ]
+  },
+  {
+    // 登入，屬於前台
+    path: '/login',
+    component: () => import('../views/LoginView.vue')
   },
   {
     path: '/admin',
