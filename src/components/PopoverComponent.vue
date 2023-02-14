@@ -1,6 +1,6 @@
 <template>
   <!-- <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button> -->
-  <button type="button" ref="popover" class="btn btn-primary" @click="popoverShow">Click to toggle popover</button>
+  <button type="button" ref="popover" class="btn btn-primary" @click="popoverShow">Click popover</button>
 </template>
 
 <script>
