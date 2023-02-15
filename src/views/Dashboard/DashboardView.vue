@@ -10,7 +10,7 @@
       aria-label="Search">
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="#">Sign out</a>
+        <a class="nav-link px-3" href="#" @click.prevent="signOut">Sign out</a>
       </div>
     </div>
   </header>
@@ -288,6 +288,48 @@
   </div>
 
 </template>
+
+<script>
+const { VITE_APP_URL } = import.meta.env
+
+export default {
+  data () {
+    return {
+      check: false
+    }
+  },
+  methods: {
+    signOut () {
+      document.cookie = `jiangvue3=;expires=${new Date()};`
+      this.$router.push('/')
+    },
+    checkAdmin () {
+      const api = `${VITE_APP_URL}api/user/check`
+      this.$http
+        .post(api)
+        .then((res) => {
+          if (res.data.success) {
+            this.check = true
+          } else {
+            this.$router.push('/login')
+          }
+        })
+        .catch((err) => {
+          console.dir(err.data.message)
+          this.$router.push('/login')
+        })
+    }
+  },
+  mounted () {
+    // 取出 cookie
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)jiangvue3\s*=\s*([^;]*).*$)|^.*$/, '$1')
+    // token 加到 headers (axios 請求時，headers 預設帶上 token)
+    this.$http.defaults.headers.common.Authorization = token
+    // 驗證是否登入
+    this.checkAdmin()
+  }
+}
+</script>
 
 <style scoped lang="scss">
 body {

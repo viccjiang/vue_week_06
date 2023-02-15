@@ -36,6 +36,10 @@
             <!-- <a class="nav-link" href="#">Link</a> -->
             <RouterLink class="nav-link" to="/cart">購物車</RouterLink>
           </li>
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="#">Link</a> -->
+            <RouterLink class="nav-link" to="/login">登入</RouterLink>
+          </li>
 
         </ul>
         <form class="d-flex" role="search">

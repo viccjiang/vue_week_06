@@ -19,24 +19,23 @@
                   </div>
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">管理者請先登入</h5>
                   <div class="form-floating mb-3">
-                    <FieldView type="email" name="email" class="form-control" :class="{ 'is-invalid': errors['email'] }"
-                      rules="email" v-model="user.username" id="floatingInput" placeholder="name@example.com" required
-                      autofocus />
+                    <FieldView type="email" name="email" class="form-control" v-model="user.username" id="floatingInput"
+                      :class="{ 'is-invalid': errors['email'] }" rules="email" placeholder="name@example.com"
+                      required autofocus />
                     <label for="floatingInput">Email</label>
                     <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
                   </div>
                   <div class="form-floating">
-                    <FieldView type="password" name="password" class="form-control" :class="{ 'is-invalid': errors['password'] }" rules="required" v-model="user.password" id="floatingPassword"
-                      placeholder="Password" required/>
+                    <FieldView type="password" name="password" class="form-control" v-model="user.password"
+                      id="floatingPassword" placeholder="Password" required />
                     <label for="floatingPassword">Password</label>
-                    <ErrorMessage name="password" class="invalid-feedback"></ErrorMessage>
 
                   </div>
                   <div class="d-flex d-grid gap-2">
                     <button class="btn btn-lg btn-outline-primary w-100 mt-3 mb-3" type="button" @click="goBack">
                       回到首頁
                     </button>
-                    <button class="btn btn-lg btn-primary w-100 mt-3 mb-3" type="button">
+                    <button class="btn btn-lg btn-primary w-100 mt-3 mb-3">
                       立即登入
                     </button>
                   </div>
@@ -76,18 +75,28 @@ export default {
   },
   methods: {
     login () {
-      const api = `${VITE_APP_URL}/admin/signin`
-      this.$http.post(api, this.user).then((response) => {
-        // 取出 token, expired
-        const { token, expired } = response.data
-        // 寫入 cookie token
-        // expires 設置有效時間 (到期日)
-        document.cookie = `jiangvue3=${token}; expires=${new Date(expired)};`
-        // 轉址
-        this.$router.push('/admin/products')
-      }).catch((err) => {
-        alert(err.data.message)
-      })
+      const user = this.user
+      this.$http.post(`${VITE_APP_URL}admin/signin`, user)
+        .then((res) => {
+          if (res.data.success) {
+            console.log(res)
+            // 取出 token, expired
+            const { token, expired } = res.data
+
+            // 寫入 cookie token
+            // expires 設置有效時間 (到期日)
+            document.cookie = `jiangvue3=${token};expires=${new Date(expired)};`
+            // console.log(token, expired)
+            // // 轉址
+            this.$router.push('/admin')
+          } else {
+            console.log(res.data.message)
+            this.user.username = ''
+            this.user.password = ''
+          }
+        }).catch((err) => {
+          console.dir(err.data.message)
+        })
     },
     goBack () {
       this.$router.push('/')

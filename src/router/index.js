@@ -71,7 +71,7 @@ const routes = [
   },
   {
     path: '/admin/:pathMatch(.*)*',
-    redirect: { name: 'adminProducts' }
+    redirect: { name: 'login' }
   }
   // 404 頁面
   // {
