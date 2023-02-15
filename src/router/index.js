@@ -8,7 +8,7 @@ const routes = [
     children: [
       {
         path: '',
-        // name: 'Home',
+        // name: 'Home', // 要做預設路徑的話要隱藏 name
         component: () => import('../views/FrontView/UserHome.vue')
       },
       {
