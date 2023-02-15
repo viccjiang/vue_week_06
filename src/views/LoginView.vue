@@ -12,27 +12,31 @@
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form class="form-signin" @submit.prevent="login">
+                <FormView class="form-signin" v-slot="{ errors }" @submit="login">
                   <div class="d-flex align-items-center mb-3 pb-1">
                     <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
                     <div class="h1 fw-bold mb-0 d-flex justify-content-center align-items-center">Logo</div>
                   </div>
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">管理者請先登入</h5>
                   <div class="form-floating mb-3">
-                    <input type="email" class="form-control" v-model="user.username" id="floatingInput"
-                      placeholder="name@example.com" required autofocus>
+                    <FieldView type="email" name="email" class="form-control" :class="{ 'is-invalid': errors['email'] }"
+                      rules="email" v-model="user.username" id="floatingInput" placeholder="name@example.com" required
+                      autofocus />
                     <label for="floatingInput">Email</label>
+                    <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
                   </div>
                   <div class="form-floating">
-                    <input type="password" class="form-control" v-model="user.password" id="floatingPassword"
-                      placeholder="Password" required>
+                    <FieldView type="password" name="password" class="form-control" :class="{ 'is-invalid': errors['password'] }" rules="required" v-model="user.password" id="floatingPassword"
+                      placeholder="Password" required/>
                     <label for="floatingPassword">Password</label>
+                    <ErrorMessage name="password" class="invalid-feedback"></ErrorMessage>
+
                   </div>
                   <div class="d-flex d-grid gap-2">
                     <button class="btn btn-lg btn-outline-primary w-100 mt-3 mb-3" type="button" @click="goBack">
                       回到首頁
                     </button>
-                    <button class="btn btn-lg btn-primary w-100 mt-3 mb-3" type="submit">
+                    <button class="btn btn-lg btn-primary w-100 mt-3 mb-3" type="button">
                       立即登入
                     </button>
                   </div>
@@ -47,7 +51,7 @@
                     </div>
                     <a href="#" class="small text-muted">Forgot password?</a>
                   </div>
-                </form>
+                </FormView>
 
               </div>
             </div>

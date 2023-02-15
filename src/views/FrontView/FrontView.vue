@@ -45,6 +45,7 @@
       </div>
     </div>
   </nav>
+
   <router-view></router-view>
 </template>
 
@@ -65,7 +66,6 @@ export default {
   mounted () {
 
   }
-
 }
 </script>
 
