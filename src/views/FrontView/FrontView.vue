@@ -38,6 +38,10 @@
           </li>
           <li class="nav-item">
             <!-- <a class="nav-link" href="#">Link</a> -->
+            <RouterLink class="nav-link" to="/fullpage">Fullpage 測試</RouterLink>
+          </li>
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="#">Link</a> -->
             <RouterLink class="nav-link" to="/login">登入</RouterLink>
           </li>
 

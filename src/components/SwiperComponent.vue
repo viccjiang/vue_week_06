@@ -1,6 +1,8 @@
 <template>
-  <h1>This is Swiper test page.</h1>
-
+  <button class="btn bnt-primary border border-primary rounded-lg-circle">55555</button>
+  <a class="btn bnt-primary rounded-circle" href="">123456</a>
+  <h1 class="custom-class">This is Swiper test page.</h1>
+  <img class="ratio-4x3" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1443&q=80"  alt="">
   <div>
     <swiper :slides-per-view="1" :space-between="50" :modules="modules" navigation :pagination="{ clickable: true }">
       <swiper-slide>
