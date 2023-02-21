@@ -16,6 +16,7 @@ import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
 import App from './App.vue'
 import router from './router'
+import { validatePhoneNumber } from './utils/utilsFunction'
 
 import './assets/all.scss'
 
@@ -32,6 +33,10 @@ configure({
 setLocale('zh_TW')
 
 const app = createApp(App)
+
+app.config.globalProperties.$utils = {
+  validatePhoneNumber
+}
 
 app.use(VueAxios, axios)
 app.use(router)

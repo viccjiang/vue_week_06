@@ -1,85 +1,91 @@
 <template>
   <div class="container">
 
-      <PopoverComponent></PopoverComponent>
-      <p>cart</p>
-      <!-- 表單驗證的部分 -->
-      <div class="my-5 row justify-content-center">
-        <FormView ref="form" class="col-md-6" v-slot="{ errors }" @submit="createOrder">
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <FieldView id="email" name="email" type="email" class="form-control"
-              :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" rules="email|required"
-              v-model="form.user.email"></FieldView>
-            <error-message name="email" class="invalid-feedback"></error-message>
-          </div>
+    <PopoverComponent></PopoverComponent>
+    <p>cart</p>
+    <!-- 表單驗證的部分 -->
+    <div class="my-5 row justify-content-center">
+      <FormView ref="form" class="col-md-6" v-slot="{ errors }" @submit="createOrder">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <FieldView id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }"
+            placeholder="請輸入 Email" rules="email|required" v-model="form.user.email"></FieldView>
+          <error-message name="email" class="invalid-feedback"></error-message>
+        </div>
 
-          <div class="mb-3">
-            <label for="name" class="form-label">收件人姓名</label>
-            <FieldView id="name" name="姓名" type="text" class="form-control" :class="{ 'is-invalid': errors['姓名'] }"
-              rules="required" v-model="form.user.name" placeholder="請輸入姓名"></FieldView>
-            <error-message name="姓名" class="invalid-feedback"></error-message>
-          </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">收件人姓名</label>
+          <FieldView id="name" name="姓名" type="text" class="form-control" :class="{ 'is-invalid': errors['姓名'] }"
+            rules="required" v-model="form.user.name" placeholder="請輸入姓名"></FieldView>
+          <error-message name="姓名" class="invalid-feedback"></error-message>
+        </div>
 
-          <div class="mb-3">
+        <div class="mb-3">
             <label for="tel" class="form-label">收件人電話</label>
             <FieldView id="tel" name="電話" type="text" class="form-control" :class="{ 'is-invalid': errors['電話'] }"
               rules="required|min:8|max:10" v-model="form.user.tel" placeholder="請輸入電話"></FieldView>
             <error-message name="電話" class="invalid-feedback"></error-message>
           </div>
 
-          <div class="mb-3">
-            <label for="address" class="form-label">收件人地址</label>
-            <FieldView id="address" name="地址" type="text" class="form-control" :class="{ 'is-invalid': errors['地址'] }"
-              rules="required" v-model="form.user.address" placeholder="請輸入地址"></FieldView>
-            <error-message name="地址" class="invalid-feedback"></error-message>
-          </div>
+        <!-- <div class="mb-3">
+          <label for="tel" class="form-label">收件人電話</label>
+          <input id="tel" name="電話" type="text" class="form-control"
+            v-model="form.user.tel" placeholder="請輸入電話" @blur="$utils.validatePhoneNumber(form.user.tel)">
+        </div> -->
 
-          <div class="mb-3">
-            <label for="address" class="form-label">交易方式</label>
-            <FieldView id="name" name="交易方式" class="form-select" :class="{ 'is-invalid': errors['交易方式'] }"
-              placeholder="請輸入交易方式" rules="required" v-model="form.user.shipping" as="select">
-              <option value="">請選擇交易方式</option>
-              <option value="ATM">ATM</option>
-              <option value="匯款">匯款</option>
-              <option value="信用卡">信用卡</option>
-            </FieldView>
-            <error-message name="交易方式" class="invalid-feedback"></error-message>
-          </div>
+        <!-- $utils.validatePhoneNumber -->
 
-          <div class="mb-3">
-            <label for="message" class="form-label">留言</label>
-            <textarea id="message" class="form-control" cols="30" rows="10" v-model="form.user.message"></textarea>
-          </div>
-          <div class="text-end">
-            <button type="submit" class="btn btn-danger">送出訂單</button>
+        <div class="mb-3">
+          <label for="address" class="form-label">收件人地址</label>
+          <FieldView id="address" name="地址" type="text" class="form-control" :class="{ 'is-invalid': errors['地址'] }"
+            rules="required" v-model="form.user.address" placeholder="請輸入地址"></FieldView>
+          <error-message name="地址" class="invalid-feedback"></error-message>
+        </div>
 
-          </div>
-          <button type="button" class="btn btn-outline-danger" @click="getOrders">取得所有目前訂單 </button>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">訂單編號</th>
-                <th scope="col">購買時間</th>
-                <th scope="col">產品價格</th>
+        <div class="mb-3">
+          <label for="address" class="form-label">交易方式</label>
+          <FieldView id="name" name="交易方式" class="form-select" :class="{ 'is-invalid': errors['交易方式'] }"
+            placeholder="請輸入交易方式" rules="required" v-model="form.user.shipping" as="select">
+            <option value="">請選擇交易方式</option>
+            <option value="ATM">ATM</option>
+            <option value="匯款">匯款</option>
+            <option value="信用卡">信用卡</option>
+          </FieldView>
+          <error-message name="交易方式" class="invalid-feedback"></error-message>
+        </div>
 
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in orders" :key="item.id">
-                <th scope="row">{{ item.id }}</th>
-                <td>{{ item.create_at }}</td>
-                <td>{{ item.total }}</td>
+        <div class="mb-3">
+          <label for="message" class="form-label">留言</label>
+          <textarea id="message" class="form-control" cols="30" rows="10" v-model="form.user.message"></textarea>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-danger">送出訂單</button>
 
-              </tr>
-            </tbody>
-          </table>
+        </div>
+        <button type="button" class="btn btn-outline-danger" @click="getOrders">取得所有目前訂單 </button>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">訂單編號</th>
+              <th scope="col">購買時間</th>
+              <th scope="col">產品價格</th>
 
-        </FormView>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in orders" :key="item.id">
+              <th scope="row">{{ item.id }}</th>
+              <td>{{ item.create_at }}</td>
+              <td>{{ item.total }}</td>
 
-      </div>
+            </tr>
+          </tbody>
+        </table>
+
+      </FormView>
+
     </div>
-
+  </div>
 </template>
 
 <script>
